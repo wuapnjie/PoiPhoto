@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 import com.xiaopo.flying.photoselecter.R;
-import com.xiaopo.flying.photoselecter.datatype.Photo;
 import com.xiaopo.flying.photoselecter.ui.custom.SquareImageView;
+import com.xiaopo.flying.poiphoto.datatype.Photo;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
     }
 
     @Override
-    public void onBindViewHolder(PreviewViewHolder holder, final int position) {
+    public void onBindViewHolder(final PreviewViewHolder holder, final int position) {
         Photo photo = mData.get(position);
         Picasso.with(holder.itemView.getContext())
                 .load("file:///" + photo.getPath())
@@ -53,7 +53,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
             @Override
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(v, position);
+                    mOnItemClickListener.onItemClick(v, holder.getAdapterPosition());
                 }
             }
         });

@@ -1,10 +1,10 @@
 package com.xiaopo.flying.photoselecter.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.xiaopo.flying.photoselecter.Define;
 import com.xiaopo.flying.photoselecter.R;
-import com.xiaopo.flying.photoselecter.datatype.Photo;
 import com.xiaopo.flying.photoselecter.ui.adapter.PreviewAdapter;
+import com.xiaopo.flying.poiphoto.Define;
+import com.xiaopo.flying.poiphoto.PhotoPicker;
+import com.xiaopo.flying.poiphoto.datatype.Photo;
 
 import java.util.List;
 
@@ -66,19 +67,25 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_selected)
     public void toPick() {
-        Intent intent = new Intent(this, PickActivity.class);
-        startActivityForResult(intent, REQUEST_PHOTO_SELECTED);
+        PhotoPicker.newInstance()
+                .setAlbumTitle("Album")
+                .setPhotoTitle("Photo")
+                .setToolbarColor(Color.BLACK)
+                .setToolbarTitleColor(Color.WHITE)
+                .setStatusBarColor(Color.BLACK)
+                .setMaxCount(3)
+                .pick(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == REQUEST_PHOTO_SELECTED) {
-            if (mPaths!=null){
+        if (resultCode == RESULT_OK && requestCode == Define.DEFAULT_REQUEST_CODE) {
+            if (mPaths != null) {
                 mPaths.clear();
             }
 
-            mPaths = data.getStringArrayListExtra(Define.PHTHS);
+            mPaths = data.getStringArrayListExtra(Define.PATHS);
             for (String path : mPaths) {
                 System.out.println(path);
             }
