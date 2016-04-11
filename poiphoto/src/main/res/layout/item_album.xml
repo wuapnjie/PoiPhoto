@@ -32,5 +32,6 @@
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:src="@drawable/ic_chevron_right_black_24dp"/>
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:contentDescription="@string/btn.jump.to.photo"/>
     </LinearLayout>

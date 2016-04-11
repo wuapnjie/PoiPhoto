@@ -3,4 +3,5 @@
     <string name="action_done">完成</string>
     <string name="title.album">请选择一个相册</string>
     <string name="title.photo">请选择相片</string>
+    <string name="btn.jump.to.photo">jump to display photos</string>
 </resources>
