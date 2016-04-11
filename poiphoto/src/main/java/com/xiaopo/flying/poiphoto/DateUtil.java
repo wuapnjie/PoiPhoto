@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
+ * DateUtil to beautify long millions
  * Created by Flying SnowBean on 16-4-4.
  */
 public class DateUtil {

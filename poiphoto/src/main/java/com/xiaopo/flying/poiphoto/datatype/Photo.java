@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * Photo bean
  * Created by Flying SnowBean on 16-4-4.
  */
 public class Photo implements Parcelable{

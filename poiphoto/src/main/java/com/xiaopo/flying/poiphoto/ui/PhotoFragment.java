@@ -28,7 +28,9 @@ import com.xiaopo.flying.poiphoto.ui.adapter.PhotoAdapter;
 
 import java.util.List;
 
-
+/**
+ * the fragment to display photo
+ */
 public class PhotoFragment extends Fragment {
 
     private static final String TAG = PhotoFragment.class.getSimpleName();

@@ -9,6 +9,7 @@ import android.support.annotation.DrawableRes;
 import com.xiaopo.flying.poiphoto.ui.PickActivity;
 
 /**
+ * outer interface
  * Created by Flying SnowBean on 16-4-10.
  */
 public class PhotoPicker {

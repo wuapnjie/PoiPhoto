@@ -1,10 +1,14 @@
 package com.xiaopo.flying.poiphoto.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiaopo.flying.poiphoto.Configure;
+import com.xiaopo.flying.poiphoto.Define;
 import com.xiaopo.flying.poiphoto.PhotoManager;
 import com.xiaopo.flying.poiphoto.R;
 import com.xiaopo.flying.poiphoto.datatype.Album;
@@ -25,7 +30,9 @@ import com.xiaopo.flying.poiphoto.ui.custom.DividerLine;
 
 import java.util.List;
 
-
+/**
+ * the fragment to display album
+ */
 public class AlbumFragment extends Fragment {
 
     RecyclerView mAlbumList;
@@ -55,10 +62,32 @@ public class AlbumFragment extends Fragment {
 
         init(view);
 
-        new AlbumTask().execute();
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, Define.DEFAULT_REQUEST_PERMISSION_CODE);
+        } else {
+            startLoad();
+        }
+    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        new AlbumTask().execute();
+//    }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Define.DEFAULT_REQUEST_PERMISSION_CODE&&grantResults[0]==PackageManager.PERMISSION_GRANTED&&grantResults[1]==PackageManager.PERMISSION_GRANTED) {
+            startLoad();
+        }
     }
 
+    private void startLoad() {
+        new AlbumTask().execute();
+    }
 
     private void init(View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
@@ -98,15 +127,9 @@ public class AlbumFragment extends Fragment {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        refreshAlbumList();
 
-    }
-
-    private void refreshAlbumList() {
-        mAlbumAdapter.refreshData(mPhotoManager.getAlbum());
+    private void refreshAlbumList(List<Album> alba) {
+        mAlbumAdapter.refreshData(alba);
     }
 
 
@@ -120,7 +143,7 @@ public class AlbumFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Album> alba) {
             super.onPostExecute(alba);
-            refreshAlbumList();
+            refreshAlbumList(alba);
         }
     }
 

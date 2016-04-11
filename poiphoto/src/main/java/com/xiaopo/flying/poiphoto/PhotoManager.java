@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 手机相册管理类
+ * Photo manager
  * Created by Flying SnowBean on 2015/11/19.
  */
 public class PhotoManager {
@@ -99,12 +99,7 @@ public class PhotoManager {
         return photos;
     }
 
-    /**
-     * 根据bucket_id获得相册封面的path
-     *
-     * @param bucketId bucket_id
-     * @return 相册封面的path
-     */
+
     private String getFrontCoverData(String bucketId) {
         String path = "empty";
         Cursor cursor = mContentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Media.DATA}, MediaStore.Images.Media.BUCKET_ID + "=?", new String[]{bucketId}, MediaStore.Images.Media.DATE_MODIFIED);

@@ -6,17 +6,10 @@
     android:layout_height="100dp"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
-    android:orientation="vertical">
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="2dp">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="2dp"
-        >
 
         <com.xiaopo.flying.poiphoto.ui.custom.SquareImageView
             android:id="@+id/iv_photo"
@@ -41,11 +34,3 @@
             android:clickable="true"
             android:src="@drawable/ic_chevron_right_black_24dp"/>
     </LinearLayout>
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0.1dp"-->
-    <!--android:layout_marginLeft="8dp"-->
-    <!--android:layout_marginRight="8dp"-->
-    <!--android:background="#000"/>-->
-</LinearLayout>

@@ -6,6 +6,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 
 /**
+ * some configuration
  * Created by Flying SnowBean on 16-4-10.
  */
 public class Configure implements Parcelable {

@@ -1,6 +1,7 @@
 package com.xiaopo.flying.poiphoto.datatype;
 
 /**
+ * Album bean
  * Created by Flying SnowBean on 16-4-4.
  */
 public class Album {

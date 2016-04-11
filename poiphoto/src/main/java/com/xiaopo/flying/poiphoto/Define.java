@@ -3,6 +3,7 @@ package com.xiaopo.flying.poiphoto;
 import android.graphics.Color;
 
 /**
+ * some default values
  * Created by Flying SnowBean on 16-4-9.
  */
 public interface Define {
@@ -15,6 +16,8 @@ public interface Define {
     ;
 
     int DEFAULT_REQUEST_CODE = 94;
+
+    int DEFAULT_REQUEST_PERMISSION_CODE = 77;
 
     int DEFAULT_TOOLBAR_COLOR = Color.BLACK;
 

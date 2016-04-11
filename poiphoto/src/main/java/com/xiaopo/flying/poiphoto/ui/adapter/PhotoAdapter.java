@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * adapter for Photo Adapter
  * Created by Flying SnowBean on 16-4-4.
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder> {

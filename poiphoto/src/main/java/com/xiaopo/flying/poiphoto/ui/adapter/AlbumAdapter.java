@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * adapter for AlbumList
  * Created by Flying SnowBean on 2015/11/19.
  */
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {

@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 /**
+ * square FrameLayout
  * Created by Flying SnowBean on 16-4-4.
  */
 public class SquareFrameLayout extends FrameLayout{
