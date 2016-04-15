@@ -1,14 +1,9 @@
 package com.xiaopo.flying.poiphoto.ui;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.xiaopo.flying.poiphoto.Configure;
@@ -23,7 +18,7 @@ public class PickActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick);
+        setContentView(R.layout.poiphoto_activity_pick);
 
         Intent intent = getIntent();
         mConfigure = intent.getParcelableExtra(Define.CONFIGURE);

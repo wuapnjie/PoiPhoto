@@ -30,7 +30,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.2.0"   // #修改# // 这里是aar的版本号
+version = "0.3.0"   // #修改# // 这里是aar的版本号
 
 android {
     compileSdkVersion 23

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .setToolbarColor(Color.BLACK)
                 .setToolbarTitleColor(Color.WHITE)
                 .setStatusBarColor(Color.BLACK)
-                .setMaxCount(3)
+                .setMaxCount(6)
                 .pick(this);
     }
 
