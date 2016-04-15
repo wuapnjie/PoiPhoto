@@ -8,7 +8,7 @@ PoiPhoto is a simple lib to select photos for Android.
 ##How to use
 ###Gradle
 ```groovy
-compile 'com.flying.xiaopo:poiphoto:0.2.0'
+compile 'com.flying.xiaopo:poiphoto:0.3.0'
 ```
 ###AndroidManifest.xml
 ```xml
