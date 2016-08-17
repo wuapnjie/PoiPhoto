@@ -5,8 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.v7.widget.RecyclerView;
 
+import com.xiaopo.flying.poiphoto.datatype.Photo;
 import com.xiaopo.flying.poiphoto.ui.PickActivity;
+import com.xiaopo.flying.poiphoto.ui.adapter.PhotoAdapter;
+
+import java.util.List;
 
 /**
  * outer interface
@@ -14,7 +19,6 @@ import com.xiaopo.flying.poiphoto.ui.PickActivity;
  */
 public class PhotoPicker {
     private Configure mConfigure;
-
 
     private PhotoPicker() {
         mConfigure = new Configure();
@@ -63,12 +67,12 @@ public class PhotoPicker {
         return this;
     }
 
-    public PhotoPicker setMaxNotice(String message){
+    public PhotoPicker setMaxNotice(String message) {
         this.mConfigure.setMaxNotice(message);
         return this;
     }
 
-    public PhotoPicker setMaxCount(int count){
+    public PhotoPicker setMaxCount(int count) {
         this.mConfigure.setMaxCount(count);
         return this;
     }
@@ -81,5 +85,21 @@ public class PhotoPicker {
         } else {
             throw new IllegalStateException("the context need to use activity");
         }
+    }
+
+    public void inflate(final RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
+        final PhotoAdapter photoAdapter = new PhotoAdapter();
+        recyclerView.setAdapter(photoAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+
+        PhotoManager photoManager = new PhotoManager(recyclerView.getContext());
+
+        new GetAllPhotoTask() {
+            @Override
+            protected void onPostExecute(List<Photo> photos) {
+                super.onPostExecute(photos);
+                photoAdapter.refreshData(photos);
+            }
+        }.execute(photoManager);
     }
 }

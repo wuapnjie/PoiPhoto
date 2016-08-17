@@ -68,13 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_selected)
     public void toPick() {
         PhotoPicker.newInstance()
-                .setAlbumTitle("Album")
-                .setPhotoTitle("Photo")
-                .setToolbarColor(Color.BLACK)
-                .setToolbarTitleColor(Color.WHITE)
-                .setStatusBarColor(Color.BLACK)
-                .setMaxCount(6)
-                .pick(this);
+                .inflate(mPreviewList, new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override

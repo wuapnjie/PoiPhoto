@@ -175,7 +175,6 @@ public class PhotoFragment extends Fragment {
         protected void onPostExecute(List<Photo> photos) {
             super.onPostExecute(photos);
             refreshPhotoList(photos);
-
         }
     }
 
