@@ -4,11 +4,11 @@ A simple Photo Selecter
 ## What is PoiPhoto
 PoiPhoto is a simple lib to select photos for Android.
 <br>
-![](http://7xrqmj.com1.z0.glb.clouddn.com/anim.gif?imageView2/0/w/450)
+![](http://7xrqmj.com1.z0.glb.clouddn.com/anim.gif)
 ##How to use
 ###Gradle
 ```groovy
-compile 'com.flying.xiaopo:poiphoto:0.3.0'
+compile 'com.flying.xiaopo:poiphoto:0.3.2'
 ```
 ###AndroidManifest.xml
 ```xml
@@ -31,6 +31,10 @@ PhotoPicker.newInstance()
           .setMaxCount(6)             //max count of selected count
           .pick(MainActivity.this);   //context
   ```
+or just get data
+```java
+PhotoManager photoManager = new PhotoManager(context);
+```
 ###To Get Data
 ```java
 @Override
