@@ -8,8 +8,6 @@
     tools:context=".ui.PickActivity">
 
 
-
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
