@@ -12,7 +12,7 @@ import com.xiaopo.flying.poiphoto.datatype.Photo;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -65,7 +65,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.PreviewV
     }
 
     public static class PreviewViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.iv_previews)
+        @BindView(R.id.iv_previews)
         SquareImageView mIvPreviews;
 
         public PreviewViewHolder(View itemView) {

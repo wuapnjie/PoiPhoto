@@ -8,30 +8,30 @@ import android.widget.FrameLayout;
  * square FrameLayout
  * Created by Flying SnowBean on 16-4-4.
  */
-public class SquareFrameLayout extends FrameLayout{
-    private final String TAG = SquareFrameLayout.class.getSimpleName();
+public class SquareFrameLayout extends FrameLayout {
+  private final String TAG = SquareFrameLayout.class.getSimpleName();
 
 
-    public SquareFrameLayout(Context context) {
-        super(context);
-    }
+  public SquareFrameLayout(Context context) {
+    super(context);
+  }
 
-    public SquareFrameLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public SquareFrameLayout(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    public SquareFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
+  public SquareFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+  }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
+  @Override
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    int width = getMeasuredWidth();
+    int height = getMeasuredHeight();
 
-        int size = width>height?height:width;
+    int size = width > height ? height : width;
 
-        setMeasuredDimension(size,size);
-    }
+    setMeasuredDimension(size, size);
+  }
 }

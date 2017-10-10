@@ -22,93 +22,93 @@ import java.util.List;
  * Created by Flying SnowBean on 2015/11/19.
  */
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder> {
-    private final String TAG = AlbumAdapter.class.getSimpleName();
+  private final String TAG = AlbumAdapter.class.getSimpleName();
 
-    private List<Album> mData;
-    private OnItemClickListener mOnItemClickListener;
+  private List<Album> mData;
+  private OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
+  public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    mOnItemClickListener = onItemClickListener;
+  }
 
-    public List<Album> getData() {
-        return mData;
-    }
+  public List<Album> getData() {
+    return mData;
+  }
 
-    public void refreshData(List<Album> data) {
-        mData = data;
-        notifyDataSetChanged();
-    }
+  public void refreshData(List<Album> data) {
+    mData = data;
+    notifyDataSetChanged();
+  }
 
-    @Override
-    public AlbumViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.poiphoto_item_album, parent, false);
-        return new AlbumViewHolder(itemView);
-    }
+  @Override
+  public AlbumViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.poiphoto_item_album, parent, false);
+    return new AlbumViewHolder(itemView);
+  }
 
-    @Override
-    public void onBindViewHolder(final AlbumViewHolder holder, final int position) {
-        holder.mTvTitle.setText(mData.get(position).getName());
-        final String path = mData.get(position).getCoverPath();
+  @Override
+  public void onBindViewHolder(final AlbumViewHolder holder, final int position) {
+    holder.mTvTitle.setText(mData.get(position).getName());
+    final String path = mData.get(position).getCoverPath();
 
 //        System.out.println(path);
 
 
-        Picasso.with(holder.itemView.getContext())
-                .load(new File(path))
-                .fit()
-                .centerInside()
-                .into(holder.mIvPhoto, new Callback() {
-                    @Override
-                    public void onSuccess() {
+    Picasso.with(holder.itemView.getContext())
+        .load(new File(path))
+        .fit()
+        .centerInside()
+        .into(holder.mIvPhoto, new Callback() {
+          @Override
+          public void onSuccess() {
 
-                    }
+          }
 
-                    @Override
-                    public void onError() {
-                        Log.e(TAG, "Picasso failed load photo -> " + path);
-                    }
-                });
-
-        holder.mAlbumContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnItemClickListener != null)
-                    mOnItemClickListener.onItemClick(v, holder.getAdapterPosition());
-            }
+          @Override
+          public void onError() {
+            Log.e(TAG, "Picasso failed load photo -> " + path);
+          }
         });
+
+    holder.mAlbumContainer.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (mOnItemClickListener != null)
+          mOnItemClickListener.onItemClick(v, holder.getAdapterPosition());
+      }
+    });
+  }
+
+
+  public String getBuckedId(int position) {
+    if (mData != null && mData.size() >= position) {
+      return mData.get(position).getId();
+    } else {
+      return "null";
     }
+  }
 
+  @Override
+  public int getItemCount() {
+    return mData == null ? 0 : mData.size();
+  }
 
-    public String getBuckedId(int position) {
-        if (mData != null && mData.size() >= position) {
-            return mData.get(position).getId();
-        } else {
-            return "null";
-        }
+  public static class AlbumViewHolder extends RecyclerView.ViewHolder {
+    SquareImageView mIvPhoto;
+    TextView mTvTitle;
+    LinearLayout mAlbumContainer;
+
+    public AlbumViewHolder(View itemView) {
+      super(itemView);
+
+      mIvPhoto = (SquareImageView) itemView.findViewById(R.id.iv_photo);
+      mTvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+      mAlbumContainer = (LinearLayout) itemView.findViewById(R.id.album_container);
+
     }
+  }
 
-    @Override
-    public int getItemCount() {
-        return mData == null ? 0 : mData.size();
-    }
-
-    public static class AlbumViewHolder extends RecyclerView.ViewHolder {
-        SquareImageView mIvPhoto;
-        TextView mTvTitle;
-        LinearLayout mAlbumContainer;
-
-        public AlbumViewHolder(View itemView) {
-            super(itemView);
-
-            mIvPhoto = (SquareImageView) itemView.findViewById(R.id.iv_photo);
-            mTvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            mAlbumContainer = (LinearLayout) itemView.findViewById(R.id.album_container);
-
-        }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View v, int position);
-    }
+  public interface OnItemClickListener {
+    void onItemClick(View v, int position);
+  }
 }

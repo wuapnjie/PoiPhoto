@@ -21,7 +21,7 @@ import com.xiaopo.flying.poiphoto.datatype.Photo;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
   public static final int REQUEST_PHOTO_SELECTED = 100;
 
   Button mBtnSelected;
-  @Bind(R.id.preview_pages) ViewPager mPreviewPages;
-  @Bind(R.id.previewList) RecyclerView mPreviewList;
+  @BindView(R.id.preview_pages) ViewPager mPreviewPages;
+  @BindView(R.id.previewList) RecyclerView mPreviewList;
 
   private PreviewAdapter mAdapter;
   private List<String> mPaths;

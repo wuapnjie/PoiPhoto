@@ -10,10 +10,10 @@ import java.util.List;
  * Created by snowbean on 16-8-17.
  */
 public class GetAllPhotoTask extends AsyncTask<PhotoManager, Integer, List<Photo>> {
-    private static final String TAG = "GetAllPhotoTask";
+  private static final String TAG = "GetAllPhotoTask";
 
-    @Override
-    protected List<Photo> doInBackground(PhotoManager... params) {
-        return params[0].getAllPhoto();
-    }
+  @Override
+  protected List<Photo> doInBackground(PhotoManager... params) {
+    return params[0].getAllPhoto();
+  }
 }

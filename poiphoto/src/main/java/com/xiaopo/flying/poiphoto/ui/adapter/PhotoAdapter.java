@@ -23,151 +23,151 @@ import java.util.Set;
  * Created by Flying SnowBean on 16-4-4.
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder> {
-    private final String TAG = PhotoAdapter.class.getSimpleName();
+  private final String TAG = PhotoAdapter.class.getSimpleName();
 
-    private List<Photo> mData;
-    private ArrayList<Photo> mSelectedPhotos;
-    private Set<Integer> mSelectedPhotoPositions;
+  private List<Photo> mData;
+  private ArrayList<Photo> mSelectedPhotos;
+  private Set<Integer> mSelectedPhotoPositions;
 
-    private OnPhotoSelectedListener mOnPhotoSelectedListener;
-    private OnPhotoUnSelectedListener mOnPhotoUnSelectedListener;
-    private OnSelectedMaxListener mOnSelectedMaxListener;
+  private OnPhotoSelectedListener mOnPhotoSelectedListener;
+  private OnPhotoUnSelectedListener mOnPhotoUnSelectedListener;
+  private OnSelectedMaxListener mOnSelectedMaxListener;
 
-    private int mMaxCount = Define.DEFAULT_MAX_COUNT;
+  private int mMaxCount = Define.DEFAULT_MAX_COUNT;
 
-    public PhotoAdapter() {
-        mSelectedPhotos = new ArrayList<>();
-        mSelectedPhotoPositions = new HashSet<>();
+  public PhotoAdapter() {
+    mSelectedPhotos = new ArrayList<>();
+    mSelectedPhotoPositions = new HashSet<>();
+  }
+
+  public int getMaxCount() {
+    return mMaxCount;
+  }
+
+  public void setMaxCount(int maxCount) {
+    mMaxCount = maxCount;
+  }
+
+  public void setOnSelectedMaxListener(OnSelectedMaxListener onSelectedMaxListener) {
+    mOnSelectedMaxListener = onSelectedMaxListener;
+  }
+
+  public void setOnPhotoSelectedListener(OnPhotoSelectedListener onPhotoSelectedListener) {
+    mOnPhotoSelectedListener = onPhotoSelectedListener;
+  }
+
+  public void setOnPhotoUnSelectedListener(OnPhotoUnSelectedListener onPhotoUnSelectedListener) {
+    mOnPhotoUnSelectedListener = onPhotoUnSelectedListener;
+  }
+
+  public ArrayList<Photo> getSelectedPhotos() {
+    return mSelectedPhotos;
+  }
+
+  public ArrayList<String> getSelectedPhotoPaths() {
+    ArrayList<String> paths = new ArrayList<>();
+    for (Photo photo : mSelectedPhotos) {
+      paths.add(photo.getPath());
     }
 
-    public int getMaxCount() {
-        return mMaxCount;
+    return paths;
+  }
+
+  public void refreshData(List<Photo> dataNew) {
+    mData = dataNew;
+    mSelectedPhotos.clear();
+    notifyDataSetChanged();
+  }
+
+  @Override
+  public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.poiphoto_item_photo, parent, false);
+    return new PhotoViewHolder(itemView);
+  }
+
+  @Override
+  public void onBindViewHolder(final PhotoViewHolder holder, final int position) {
+    //解决View复用时的问题
+    if (!mSelectedPhotoPositions.contains(position) && holder.mShadow.getVisibility() == View.VISIBLE) {
+      holder.mShadow.setVisibility(View.GONE);
+    } else if (mSelectedPhotoPositions.contains(position) && holder.mShadow.getVisibility() != View.VISIBLE) {
+      holder.mShadow.setVisibility(View.VISIBLE);
     }
 
-    public void setMaxCount(int maxCount) {
-        mMaxCount = maxCount;
-    }
+    final String path = mData.get(position).getPath();
 
-    public void setOnSelectedMaxListener(OnSelectedMaxListener onSelectedMaxListener) {
-        mOnSelectedMaxListener = onSelectedMaxListener;
-    }
+    Picasso.with(holder.itemView.getContext())
+        .load("file:///" + path)
+        .fit()
+        .centerInside()
+        .into(holder.mIvPhoto, new Callback() {
+          @Override
+          public void onSuccess() {
 
-    public void setOnPhotoSelectedListener(OnPhotoSelectedListener onPhotoSelectedListener) {
-        mOnPhotoSelectedListener = onPhotoSelectedListener;
-    }
+          }
 
-    public void setOnPhotoUnSelectedListener(OnPhotoUnSelectedListener onPhotoUnSelectedListener) {
-        mOnPhotoUnSelectedListener = onPhotoUnSelectedListener;
-    }
-
-    public ArrayList<Photo> getSelectedPhotos() {
-        return mSelectedPhotos;
-    }
-
-    public ArrayList<String> getSelectedPhotoPaths() {
-        ArrayList<String> paths = new ArrayList<>();
-        for (Photo photo : mSelectedPhotos) {
-            paths.add(photo.getPath());
-        }
-
-        return paths;
-    }
-
-    public void refreshData(List<Photo> dataNew) {
-        mData = dataNew;
-        mSelectedPhotos.clear();
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.poiphoto_item_photo, parent, false);
-        return new PhotoViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(final PhotoViewHolder holder, final int position) {
-        //解决View复用时的问题
-        if (!mSelectedPhotoPositions.contains(position) && holder.mShadow.getVisibility() == View.VISIBLE) {
-            holder.mShadow.setVisibility(View.GONE);
-        } else if (mSelectedPhotoPositions.contains(position) && holder.mShadow.getVisibility() != View.VISIBLE) {
-            holder.mShadow.setVisibility(View.VISIBLE);
-        }
-
-        final String path = mData.get(position).getPath();
-
-        Picasso.with(holder.itemView.getContext())
-                .load("file:///" + path)
-                .fit()
-                .centerInside()
-                .into(holder.mIvPhoto, new Callback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onError() {
-                        Log.e(TAG, "Picasso failed load photo -> " + path);
-                    }
-                });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = holder.getAdapterPosition();
-                if (mSelectedPhotoPositions.contains(pos)) {
-
-                    mSelectedPhotoPositions.remove(pos);
-                    mSelectedPhotos.remove(mData.get(pos));
-                    if (mOnPhotoUnSelectedListener != null) {
-                        mOnPhotoUnSelectedListener.onPhotoUnSelected(mData.get(pos), pos);
-                    }
-
-                    holder.mShadow.setVisibility(View.GONE);
-
-                } else {
-                    if (mSelectedPhotoPositions.size() >= mMaxCount) {
-                        if (mOnSelectedMaxListener != null) mOnSelectedMaxListener.onSelectedMax();
-                    } else {
-                        mSelectedPhotoPositions.add(pos);
-                        mSelectedPhotos.add(mData.get(pos));
-                        if (mOnPhotoSelectedListener != null) {
-                            mOnPhotoSelectedListener.onPhotoSelected(mData.get(pos), pos);
-                        }
-                        holder.mShadow.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
+          @Override
+          public void onError() {
+            Log.e(TAG, "Picasso failed load photo -> " + path);
+          }
         });
-    }
 
-    @Override
-    public int getItemCount() {
-        return mData == null ? 0 : mData.size();
-    }
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        int pos = holder.getAdapterPosition();
+        if (mSelectedPhotoPositions.contains(pos)) {
 
-    public static class PhotoViewHolder extends RecyclerView.ViewHolder {
-        SquareImageView mIvPhoto;
-        View mShadow;
+          mSelectedPhotoPositions.remove(pos);
+          mSelectedPhotos.remove(mData.get(pos));
+          if (mOnPhotoUnSelectedListener != null) {
+            mOnPhotoUnSelectedListener.onPhotoUnSelected(mData.get(pos), pos);
+          }
 
-        public PhotoViewHolder(View itemView) {
-            super(itemView);
+          holder.mShadow.setVisibility(View.GONE);
 
-            mIvPhoto = (SquareImageView) itemView.findViewById(R.id.iv_photo);
-            mShadow = itemView.findViewById(R.id.shadow);
+        } else {
+          if (mSelectedPhotoPositions.size() >= mMaxCount) {
+            if (mOnSelectedMaxListener != null) mOnSelectedMaxListener.onSelectedMax();
+          } else {
+            mSelectedPhotoPositions.add(pos);
+            mSelectedPhotos.add(mData.get(pos));
+            if (mOnPhotoSelectedListener != null) {
+              mOnPhotoSelectedListener.onPhotoSelected(mData.get(pos), pos);
+            }
+            holder.mShadow.setVisibility(View.VISIBLE);
+          }
         }
-    }
+      }
+    });
+  }
 
-    public interface OnPhotoSelectedListener {
-        void onPhotoSelected(Photo photo, int position);
-    }
+  @Override
+  public int getItemCount() {
+    return mData == null ? 0 : mData.size();
+  }
 
-    public interface OnPhotoUnSelectedListener {
-        void onPhotoUnSelected(Photo photo, int position);
-    }
+  public static class PhotoViewHolder extends RecyclerView.ViewHolder {
+    SquareImageView mIvPhoto;
+    View mShadow;
 
-    public interface OnSelectedMaxListener {
-        void onSelectedMax();
+    public PhotoViewHolder(View itemView) {
+      super(itemView);
+
+      mIvPhoto = (SquareImageView) itemView.findViewById(R.id.iv_photo);
+      mShadow = itemView.findViewById(R.id.shadow);
     }
+  }
+
+  public interface OnPhotoSelectedListener {
+    void onPhotoSelected(Photo photo, int position);
+  }
+
+  public interface OnPhotoUnSelectedListener {
+    void onPhotoUnSelected(Photo photo, int position);
+  }
+
+  public interface OnSelectedMaxListener {
+    void onSelectedMax();
+  }
 }

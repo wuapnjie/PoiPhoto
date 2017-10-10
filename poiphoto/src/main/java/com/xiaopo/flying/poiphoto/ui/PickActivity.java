@@ -13,37 +13,37 @@ import com.xiaopo.flying.poiphoto.R;
 
 public class PickActivity extends AppCompatActivity {
 
-    private Configure mConfigure;
+  private Configure mConfigure;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.poiphoto_activity_pick);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.poiphoto_activity_pick);
 
-        Intent intent = getIntent();
-        mConfigure = intent.getParcelableExtra(Define.CONFIGURE);
+    Intent intent = getIntent();
+    mConfigure = intent.getParcelableExtra(Define.CONFIGURE);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            changeStatusBar(mConfigure.getStatusBarColor());
-        }
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new AlbumFragment()).commit();
-
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+      changeStatusBar(mConfigure.getStatusBarColor());
     }
 
-    @TargetApi(21)
-    private void changeStatusBar(int statusBarColor) {
-        getWindow().setStatusBarColor(statusBarColor);
-    }
+    getSupportFragmentManager().beginTransaction().replace(R.id.container, new AlbumFragment()).commit();
+
+  }
+
+  @TargetApi(21)
+  private void changeStatusBar(int statusBarColor) {
+    getWindow().setStatusBarColor(statusBarColor);
+  }
 
 
-    public void setConfigure(Configure configure) {
-        mConfigure = configure;
-    }
+  public void setConfigure(Configure configure) {
+    mConfigure = configure;
+  }
 
-    public Configure getConfigure() {
-        return mConfigure;
-    }
+  public Configure getConfigure() {
+    return mConfigure;
+  }
 
 
 }
